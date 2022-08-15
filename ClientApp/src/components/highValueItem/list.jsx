@@ -14,7 +14,6 @@ import {
     ListGroup,
     ListGroupItem,
 } from 'reactstrap';
-import { actionCreators as settingsActionCreators } from '../../store/settingsStore';
 import { actionCreators as highValueItemsActionCreators } from '../../store/highValueItemsStore';
 
 function generateKey (id, name) {
@@ -22,7 +21,7 @@ function generateKey (id, name) {
 }
 
 function renderAmount(amount) {
-    return <span>${amount != 0 ? <Numeral value={amount} format={"0,0"} /> : '0'}</span>
+    return <span>${amount !== 0 ? <Numeral value={amount} format={"0,0"} /> : '0'}</span>
 }
 
 function TotalAmount() {
@@ -32,26 +31,18 @@ function TotalAmount() {
 
 export default function HighValuesItemList() {
     const dispatch = useDispatch()
-    const isInit = useSelector(state => state.settings.isInit) && useSelector(state => state.highValueItems.isInit);
     const isSettingsLoading = useSelector(state => state.settings.isLoading);
     const categoriesFromSettings = useSelector(state => state.settings.config.highValuesCategories);
     const isHighValuesItemsLoading = useSelector(state => state.highValueItems.isLoading);
     const categoryItemsMapper = useSelector(state => state.highValueItems.categoryItemMapper);
-    const highValuesCategories = useSelector(state => state.highValueItems.categories);
-
-    // TODO: wait for testing
-    // if (isInit) {
-    //     dispatch(settingsActionCreators.retrieveSettings());
-    //     dispatch(highValueItemsActionCreators.retrieveItems());
-    // }
 
     if (isSettingsLoading || isHighValuesItemsLoading)
         return <Spinner>Loading...</Spinner>
 
     const renderItemList = (category) => {
-        const items = categoryItemsMapper[category.name];
+        const { items } = categoryItemsMapper[category.name];
 
-        if (!items || (Array.isArray(items) && items.length == 0))
+        if (!items || (Array.isArray(items) && items.length === 0))
             return <CardBody><CardText>No records</CardText></CardBody>;
 
         return <div>
@@ -78,12 +69,12 @@ export default function HighValuesItemList() {
     };
 
     const renderSubTotalAmount = (category) => {
-        const highValuesCategory = highValuesCategories.filter(item => item.name == category.name);
+        const highValuesCategory = categoryItemsMapper[category.name];
 
-        if (highValuesCategory.length == 0)
+        if (!highValuesCategory)
             return <span>0</span>;
         
-        return <strong>{renderAmount(highValuesCategory[0].subTotal)}</strong>
+        return <strong>{renderAmount(highValuesCategory.subTotal)}</strong>
     };
 
 

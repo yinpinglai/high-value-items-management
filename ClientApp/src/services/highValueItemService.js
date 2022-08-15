@@ -12,7 +12,7 @@ export default class HighValueItemService extends ServiceBase {
 
     async addItem(item) {
         const result = await this.requestJson({
-            url: '/api/highValueItems/add',
+            url: '/api/highValueItems',
             method: 'POST',
             data: item,
         });

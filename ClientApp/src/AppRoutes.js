@@ -1,4 +1,4 @@
-import { Home } from "./pages/HomePage";
+import Home from "./pages/HomePage";
 
 const AppRoutes = [
   {

@@ -59,13 +59,13 @@ export class ServiceBase {
                     axiosResult = await Axios.delete(processQuery(opts.url, opts.data), axiosRequestConfig);
                     break;
             }
-            result = new Result(axiosResult.data.value, ...axiosResult.data.errors);
+            result = new Result(axiosResult.data.Value, ...(axiosResult.data.Errors ? axiosResult.data.Errors : []));
         } catch (error) {
             result = new Result(null, error.message);
         }
 
-        if (result.hasErrors) {
-            showErrors(...result.errors);
+        if (result.HasErrors) {
+            showErrors(...result.Errors);
         }
 
         return result;
@@ -97,13 +97,13 @@ export class ServiceBase {
                     axiosResult = await Axios.patch(opts.url, opts.data, axiosOpts);
                     break;
             }
-            result = new Result(axiosResult.data.value, ...axiosResult.data.errors);
+            result = new Result(axiosResult.data.Value, ...(axiosResult.data.Errors ? axiosResult.data.Errors : []));
         } catch (error) {
             result = new Result(null, error.message);
         }
 
         if (result.hasErrors) {
-            showErrors(...result.errors);
+            showErrors(...result.Errors);
         }
 
         return result;
