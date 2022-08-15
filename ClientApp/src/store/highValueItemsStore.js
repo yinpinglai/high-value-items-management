@@ -25,20 +25,12 @@ export const slice = createSlice({
         },
         addItem: (state, action) => {
             state.items = [...state.items, action.payload];
-            state.categories = state.categories.map(category => {
-                if (category.name === action.payload.category)
-                    category.subTotal += action.payload.value;
-                return category;
-            });
+            state.categoryItemMapper[action.payload.category].subTotal += action.payload.value;
             state.total += action.payload.value;
         },
         removeItem: (state, action) => {
-            state.items = state.items.filter(item => item.id !== action.payload.id);
-            state.categories = state.categories.map(category => {
-                if (category.name === action.payload.category)
-                    category.subTotal -= action.payload.value;
-                return category;
-            });
+            state.items = state.items.filter(item => item.Id !== action.payload.Id);
+            state.categoryItemMapper[action.payload.category].subTotal -= action.payload.value;
             state.total -= action.payload.value;
         },
         setCategoryItemMapper: (state, action) => {

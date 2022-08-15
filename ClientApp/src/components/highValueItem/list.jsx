@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import {
     Spinner,
+    Container,
+    Row,
+    Col,
     Button,
     Card,
     CardHeader,
@@ -40,29 +43,29 @@ export default function HighValuesItemList() {
         return <Spinner>Loading...</Spinner>
 
     const renderItemList = (category) => {
-        const { items } = categoryItemsMapper[category.name];
+        const categoryItems = categoryItemsMapper[category.name];
 
-        if (!items || (Array.isArray(items) && items.length === 0))
+        if (!categoryItems || !categoryItems.items || (Array.isArray(categoryItems.items) && categoryItems.items.length === 0))
             return <CardBody><CardText>No records</CardText></CardBody>;
 
         return <div>
             <ListGroup flush>
-                {items.map((item, index) =>
+                {categoryItems.items.map((item, index) =>
                     <ListGroupItem key={generateKey(item.id, item.name)}>
-                        <div className='container'>
-                            <div className='row justify-content-between align-items-center'>
-                                <div className='col-9'>{index + 1}. {item.name}</div>
-                                <div className='col-2'>{renderAmount(item.value)}</div>
-                                <div className='col-1'>
+                        <Container>
+                            <Row className='justify-content-between align-items-center'>
+                                <Col md={9}>{index + 1}. {item.name}</Col>
+                                <Col md={2}>{renderAmount(item.value)}</Col>
+                                <Col md={1}>
                                     <Button
                                         color="danger"
                                         onClick={() => dispatch(highValueItemsActionCreators.removeItem(item))}
                                     >
                                         <FontAwesomeIcon icon={faTrash} />
                                     </Button>
-                                </div>
-                            </div>
-                        </div>
+                                </Col>
+                            </Row>
+                        </Container>
                     </ListGroupItem>)}
             </ListGroup>
         </div>;
@@ -78,20 +81,20 @@ export default function HighValuesItemList() {
     };
 
 
-    return <div className='container'>
+    return <Container>
         {categoriesFromSettings.map(item => (
             <Card key={generateKey(item.id, item.name)}>
                 <CardHeader>
-                    <div className='container'>
-                        <div className='row justify-content-between align-items-center'>
-                            <div className='col-8'>{item.name}</div>
-                            <div className='col-4'>{renderSubTotalAmount(item)}</div>
-                        </div>
-                    </div>
+                    <Container>
+                        <Row className='justify-content-between align-items-center'>
+                            <Col md={8}>{item.name}</Col>
+                            <Col md={4}>{renderSubTotalAmount(item)}</Col>
+                        </Row>
+                    </Container>
                 </CardHeader>
                 {renderItemList(item)}
             </Card>
         ))}
         <TotalAmount />
-    </div>
+    </Container>
 };
