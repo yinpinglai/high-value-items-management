@@ -1,24 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import HighValueItemService from '../services/highValueItemService';
 
+export const initialState = {
+    isInit: true,
+    isLoading: false,
+    items: [],
+    categoryItemMapper: {},
+    total: 0.0,
+};
+
 export const slice = createSlice({
     name: 'highValueItems',
-    initialState: {
-        isInit: true,
-        isLoading: false,
-        items: [],
-        categoryItemMapper: {},
-        total: 0.0,
-    },
+    initialState,
     reducers: {
         setInitializing: (state, action) => {
             state.isInit = action.payload;
         },
         setRequesting: (state, action) => {
             state.isLoading = action.payload;
-        },
-        setCategories: (state, action) => {
-            state.categories = action.payload;
         },
         setItems: (state, action) => {
             state.items = action.payload;
@@ -38,9 +37,6 @@ export const slice = createSlice({
         },
         setTotal: (state, action) => {
             state.total = action.payload;
-        },
-        setErrors: (state, action) => {
-            state.errors = action.payload;
         },
         refreshCategoryItemMapper: (state, _) => {
             state.categoryItemMapper = state.items.reduce(
@@ -66,6 +62,18 @@ export const slice = createSlice({
         },
     },
 });
+
+export const {
+    setInitializing,
+    setRequesting,
+    setItems,
+    addItem,
+    removeItem,
+    setCategoryItemMapper,
+    setTotal,
+    refreshCategoryItemMapper,
+    recalculateTotalAmount,
+} = slice.actions;
 
 export const actionCreators = {
     // Restore all precious item records at the beginning

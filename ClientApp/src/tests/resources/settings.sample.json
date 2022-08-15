@@ -1,0 +1,17 @@
+{
+    "highValuesCategories": [
+        {
+            "Id": 1,
+            "name": "Electronic"
+        },
+        {
+            "Id": 2,
+            "name": "Clothing"
+        },
+        {
+            "Id": 3,
+            "name": "Kitchen"
+        }
+    ]
+
+}

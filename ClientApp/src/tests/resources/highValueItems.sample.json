@@ -1,0 +1,8 @@
+[
+    {"Id": "1", "category": "Electronic", "name": "TV", "value": 2000.0},
+    {"Id": "2", "category": "Electronic", "name": "Stereo", "value": 1600.0},
+    {"Id": "3", "category": "Clothing", "name": "Shirts", "value": 1100.0},
+    {"Id": "4", "category": "Clothing", "name": "Jeans", "value": 1100.0},
+    {"Id": "5", "category": "Kitchen", "name": "Pots and Pans", "value": 500.0},
+    {"Id": "6", "category": "Kitchen", "name": "Misc", "value": 100.0}
+]

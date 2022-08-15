@@ -1,16 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import SettingsService from '../services/settingsService';
 
+export const initialState = {
+    isInit: true,
+    isLoading: false,
+    config: {
+        highValuesCategories: [],
+    },
+};
+
 export const slice = createSlice({
     name: 'settings',
-    initialState: {
-        isInit: true,
-        isLoading: false,
-        config: {
-            highValuesCategories: [],
-        },
-        errors: undefined,
-    },
+    initialState,
     reducers: {
         setInitializing: (state, action) => {
             state.isInit = action.payload;
@@ -21,11 +22,10 @@ export const slice = createSlice({
         setSettings: (state, action) => {
             state.config = action.payload;
         },
-        setErrors: (state, action) => {
-            state.errors = action.payload;
-        },
     },
 });
+
+export const { setInitializing, setRequesting, setSettings  } = slice.actions;
 
 export const actionCreators = {
     retrieveSettings: () => async (dispatch) => {
