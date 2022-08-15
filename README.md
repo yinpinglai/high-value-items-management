@@ -9,6 +9,20 @@ An simple project for managing high-values items.
 - Node.js 14+
 - C# .Net Core 6.x+
 
+## Insert dummy application settings record to MongoDB
+```bash
+mongo
+use HighValueItemManagementDatabase;
+db.Settings.insert({
+   _id: ObjectId(),
+   highValuesCategories: [
+      {_id: ObjectId(), "name": "Electronic"},
+      {_id: ObjectId(), "name": "Clothing"},
+      {_id: ObjectId(), "name": "Kitchen"}
+   ]
+});
+```
+
 ## Quick Start
 ```bash
 cd src/ClientApp
